@@ -16,7 +16,7 @@ extension RouteIdentifier {
 }
 
 // MARK: Define Specialized Routes
-extension Route where RootViewController == UITabBarController {
+extension Route where Navigatee == UITabBarController {
 	    
     static var leftTab: Route {
 		return Route(identifier: .leftTabRoute) { rootViewController, _ -> Bool in
@@ -50,7 +50,7 @@ extension Route where RootViewController == UITabBarController {
 }
 
 // MARK: Helper
-extension Route where RootViewController == UITabBarController {
+extension Route where Navigatee == UITabBarController {
 	
 	static func route(forIdentifier identifier: String) -> Route? {
 		if identifier.contains(RouteIdentifier.leftTabRoute.rawValue) {
