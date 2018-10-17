@@ -8,8 +8,8 @@
 
 import Foundation
 
-public struct Route<Navigatee> {
-    public typealias Navigator = (_ navigatee: Navigatee, _ options: [AnyHashable: Any]?) -> Bool
+public struct Route<Root> {
+    public typealias Navigator = (_ root: Root, _ options: [AnyHashable: Any]?) -> Bool
     
     // MARK: Properties
     private let navigator: Navigator
@@ -39,7 +39,7 @@ public struct Route<Navigatee> {
     /// - Parameters:
     ///   - route: The route to base the new Route off of.
     ///   - isSuspendable: The suspend ability of this new route. Defaults to true.
-    public init(route: Route<Navigatee>, isSuspendable: Bool = true) {
+    public init(route: Route<Root>, isSuspendable: Bool = true) {
         self.init(identifier: route.identifier, isSuspendable: isSuspendable, navigator: route.navigator)
     }
     
@@ -47,11 +47,11 @@ public struct Route<Navigatee> {
     /// If the intended destination can be reached successfully, this function should return true. Otherwise, return false.
     ///
     /// - Parameters:
-    ///   - navigatee: The object at the root of the navigation hierarchy.
+    ///   - root: The object at the root of the navigation hierarchy.
     ///   - options: Any routing options that should be taken into account when routing.
     /// - Returns: Return true if the routing is successful, false otherwise.
-    func route(fromNavigatee navigatee: Navigatee, options: [AnyHashable: Any]?) -> Bool {
-        return navigator(navigatee, options)
+    func route(fromRoot root: Root, options: [AnyHashable: Any]?) -> Bool {
+        return navigator(root, options)
     }
 }
 
